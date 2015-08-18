@@ -1,0 +1,12 @@
+<html>
+<head>
+    <title>matches</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="components/matches/matchController.js"></script>
+</head>
+<body ng-app="sc2-stats" ng-controller="MatchController">
+<ul>
+    <li ng-repeat="match in matches">{{match}}</li>
+</ul>
+</body>
+</html>
