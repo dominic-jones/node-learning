@@ -4,7 +4,7 @@ app.controller('MatchController', ['$scope', '$http', function ($scope, $http) {
 
     $http.get('/api/matches')
         .success(function (data) {
-            $scope.matches = data.matches;
+            $scope.matches = data;
         })
         .error(function (data) {
         });

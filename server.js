@@ -4,6 +4,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+require('./models/Match');
+mongoose.connect('mongodb://localhost/sc2-stats');
+
+var init = require('./routes/init');
 var routes = require('./routes/matches');
 
 var app = express();
@@ -19,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')));
 
+app.use('/', init);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -35,9 +41,9 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.json({
             message: err.message,
-            error: err
+            error: {}
         });
     });
 }
@@ -46,14 +52,14 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
         message: err.message,
         error: {}
     });
 });
 
 app.get('*', function (req, res) {
-    res.sendFile('./public/index.html');
+    res.sendFile(path.join('public', 'index.html'));
 });
 
 module.exports = app;
