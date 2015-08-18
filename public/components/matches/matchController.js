@@ -1,8 +1,11 @@
 var app = angular.module('sc2-stats', []);
 
-app.controller('MatchController', ['$scope', function ($scope) {
-    $scope.matches = [
-        'match1',
-        'match2'
-    ];
+app.controller('MatchController', ['$scope', '$http', function ($scope, $http) {
+
+    $http.get('/api/matches')
+        .success(function (data) {
+            $scope.matches = data.matches;
+        })
+        .error(function (data) {
+        });
 }]);
