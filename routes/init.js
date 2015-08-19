@@ -11,7 +11,8 @@ router.get('/api/init', function (req, res) {
         {playerRace: "Terran", opponentRace: "Protoss", result: 'Loss'},
         {playerRace: "Terran", opponentRace: "Protoss", result: 'Win'},
         {playerRace: "Zerg", opponentRace: "Terran", result: 'Win'},
-        {playerRace: "Zerg", opponentRace: "Zerg", result: 'Loss'}
+        {playerRace: "Zerg", opponentRace: "Zerg", result: 'Loss'},
+        {playerRace: "Protoss", opponentRace: "Zerg", result: 'Loss'}
     ];
 
     Match.remove({}, function (err) {

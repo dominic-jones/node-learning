@@ -3,7 +3,6 @@
 <head>
     <title>matches</title>
     <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/underscore/underscore-min.js"></script>
     <script src="components/matches/matchController.js"></script>
 </head>
 
@@ -11,13 +10,35 @@
 <a href="/api/init">Initialise Data</a>
 
 <p>{{message}}</p>
+
+<h2>Statistics</h2>
+<table>
+    <tr ng-repeat-start="(race, stats) in matches.byRace">
+        <td>{{race}} Wins</td>
+        <td>{{stats.wins}}</td>
+    </tr>
+    <tr>
+        <td>{{race}} Losses</td>
+        <td>{{stats.losses}}</td>
+    </tr>
+    <tr>
+        <td>{{race}} Ratio</td>
+        <td>{{stats.ratio}}%</td>
+    </tr>
+    <tr ng-repeat-end ng-repeat="(againstRace, losses) in stats.lossesAgainstRace">
+        <td>Losses against {{againstRace}}</td>
+        <td>{{losses}}</td>
+    </tr>
+</table>
+
+<h2>Match History</h2>
 <table>
     <tr>
         <th>Player Race</th>
         <th>Opponent Race</th>
         <th>Result</th>
     </tr>
-    <tr ng-repeat="match in matches">
+    <tr ng-repeat="match in matches.matches">
         <td>{{match.playerRace}}</td>
         <td>{{match.opponentRace}}</td>
         <td>{{match.result}}</td>
