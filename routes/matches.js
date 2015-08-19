@@ -50,22 +50,32 @@ function withRace(race, matches) {
 }
 
 function findRace(limit, race) {
-    return Match.find({playerRace: race})
+    var query;
+    if (typeof race !== 'undefined') {
+        query = {playerRace: race};
+    }
+    return Match.find(query)
         .sort([['date', 'descending']])
-        .limit(limit)
+        .limit(limit);
+}
+
+function findWithRace(limit, race) {
+    return findRace(limit, race)
+        .then(withRace.bind(null, race));
+}
+
+function findOverall(limit, race) {
+    return findRace(limit)
         .then(withRace.bind(null, race));
 }
 
 router.get('/api/matches', function (req, res, next) {
     var limit = 5;
     Q.all([
-        Match.find()
-            .sort([['date', 'descending']])
-            .limit(limit)
-            .then(withRace.bind(null, 'Overall')),
-        findRace('Protoss', limit),
-        findRace('Terran', limit),
-        findRace('Zerg', limit)
+        findOverall(limit, 'Overall'),
+        findWithRace(limit, 'Protoss'),
+        findWithRace(limit, 'Terran'),
+        findWithRace(limit, 'Zerg')
     ])
         .then(function mapToStatistics(raceHistory) {
             return raceHistory.map(toStatistics);
