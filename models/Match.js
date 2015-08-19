@@ -13,7 +13,8 @@ var MatchSchema = new mongoose.Schema({
     result: {
         type: String,
         enum: ['Win', 'Loss', 'Draw']
-    }
+    },
+    date: Date
 });
 
 mongoose.model('Match', MatchSchema);

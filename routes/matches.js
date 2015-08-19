@@ -49,8 +49,9 @@ function withRace(race, matches) {
     };
 }
 
-function findRace(race, limit) {
+function findRace(limit, race) {
     return Match.find({playerRace: race})
+        .sort([['date', 'descending']])
         .limit(limit)
         .then(withRace.bind(null, race));
 }
@@ -59,6 +60,7 @@ router.get('/api/matches', function (req, res, next) {
     var limit = 5;
     Q.all([
         Match.find()
+            .sort([['date', 'descending']])
             .limit(limit)
             .then(withRace.bind(null, 'Overall')),
         findRace('Protoss', limit),

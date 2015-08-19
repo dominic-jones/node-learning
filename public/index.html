@@ -37,16 +37,18 @@
         </table>
 
         <h3>{{race}} Match History</h3>
-        <table>
+        <table width="75%">
             <tr>
                 <th>Player Race</th>
                 <th>Opponent Race</th>
                 <th>Result</th>
+                <th>Date</th>
             </tr>
             <tr ng-repeat="match in raceDatum.matches">
                 <td>{{match.playerRace}}</td>
                 <td>{{match.opponentRace}}</td>
                 <td>{{match.result}}</td>
+                <td>{{match.date  | date:'MMM d y - hh:mm:ss'}}</td>
             </tr>
         </table>
     </tab>
