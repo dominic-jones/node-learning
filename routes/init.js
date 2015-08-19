@@ -6,20 +6,22 @@ var Match = mongoose.model('Match');
 
 router.get('/api/init', function (req, res) {
     var initialData = [
-        {playerRace: "Zerg", opponentRace: "Protoss", result: 'Win'},
-        {playerRace: "Protoss", opponentRace: "Terran", result: 'Loss'},
-        {playerRace: "Terran", opponentRace: "Protoss", result: 'Loss'},
-        {playerRace: "Terran", opponentRace: "Protoss", result: 'Win'},
-        {playerRace: "Zerg", opponentRace: "Terran", result: 'Win'},
-        {playerRace: "Zerg", opponentRace: "Zerg", result: 'Loss'},
-        {playerRace: "Protoss", opponentRace: "Zerg", result: 'Loss'}
+        {playerRace: 'Zerg', opponentRace: 'Protoss', result: 'Win'},
+        {playerRace: 'Protoss', opponentRace: 'Terran', result: 'Loss'},
+        {playerRace: 'Terran', opponentRace: 'Protoss', result: 'Loss'},
+        {playerRace: 'Terran', opponentRace: 'Protoss', result: 'Win'},
+        {playerRace: 'Zerg', opponentRace: 'Terran', result: 'Win'},
+        {playerRace: 'Zerg', opponentRace: 'Zerg', result: 'Loss'},
+        {playerRace: 'Protoss', opponentRace: 'Zerg', result: 'Loss'}
     ];
 
     Match.remove({}, function (err) {
         console.log('collection removed')
     });
 
-    Match.collection.insert(initialData, function (err) {
+    //I am aware this is slow as it calls through save() on each entity, but at this stage of the app I
+    //want the validation
+    Match.create(initialData, function (err) {
         if (err) {
             return next(err);
         }
