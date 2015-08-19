@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('sc2-stats', []);
+var app = angular.module('sc2-stats', ['ui.bootstrap.tabs', 'ui.bootstrap.tpls']);
 
 app.controller('MatchController', ['$scope', '$http', function ($scope, $http) {
 
@@ -9,5 +9,6 @@ app.controller('MatchController', ['$scope', '$http', function ($scope, $http) {
             $scope.raceData = data.raceData;
         })
         .error(function (data) {
+            $scope.message = data;
         });
 }]);
