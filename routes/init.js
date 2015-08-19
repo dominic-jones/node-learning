@@ -8,13 +8,27 @@ var Match = mongoose.model('Match');
 
 router.get('/api/init', function (req, res, next) {
     var initialData = [
-        {playerRace: 'Zerg', opponentRace: 'Protoss', result: 'Win'},
         {playerRace: 'Protoss', opponentRace: 'Terran', result: 'Loss'},
+        {playerRace: 'Protoss', opponentRace: 'Zerg', result: 'Loss'},
+        {playerRace: 'Protoss', opponentRace: 'Protoss', result: 'Loss'},
+        {playerRace: 'Protoss', opponentRace: 'Protoss', result: 'Win'},
+        {playerRace: 'Protoss', opponentRace: 'Terran', result: 'Win'},
+        {playerRace: 'Protoss', opponentRace: 'Zerg', result: 'Loss'},
+
         {playerRace: 'Terran', opponentRace: 'Protoss', result: 'Loss'},
-        {playerRace: 'Terran', opponentRace: 'Protoss', result: 'Win'},
+        {playerRace: 'Terran', opponentRace: 'Zerg', result: 'Win'},
+        {playerRace: 'Terran', opponentRace: 'Protoss', result: 'Loss'},
+        {playerRace: 'Terran', opponentRace: 'Zerg', result: 'Win'},
+        {playerRace: 'Terran', opponentRace: 'Terran', result: 'Loss'},
+        {playerRace: 'Terran', opponentRace: 'Zerg', result: 'Win'},
+
+        {playerRace: 'Zerg', opponentRace: 'Protoss', result: 'Win'},
         {playerRace: 'Zerg', opponentRace: 'Terran', result: 'Win'},
         {playerRace: 'Zerg', opponentRace: 'Zerg', result: 'Loss'},
-        {playerRace: 'Protoss', opponentRace: 'Zerg', result: 'Loss'}
+        {playerRace: 'Zerg', opponentRace: 'Zerg', result: 'Loss'},
+        {playerRace: 'Zerg', opponentRace: 'Terran', result: 'Win'},
+        {playerRace: 'Zerg', opponentRace: 'Zerg', result: 'Win'},
+        {playerRace: 'Zerg', opponentRace: 'Terran', result: 'Loss'}
     ];
 
     Match.remove({}, function (err) {

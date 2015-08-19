@@ -6,7 +6,7 @@ app.controller('MatchController', ['$scope', '$http', function ($scope, $http) {
 
     $http.get('/api/matches')
         .success(function (data) {
-            $scope.matches = data;
+            $scope.raceData = data.raceData;
         })
         .error(function (data) {
         });
