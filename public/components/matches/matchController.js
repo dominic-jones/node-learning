@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('sc2-stats', []);
 
 app.controller('MatchController', ['$scope', '$http', function ($scope, $http) {

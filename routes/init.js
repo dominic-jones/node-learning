@@ -1,10 +1,12 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
 var Match = mongoose.model('Match');
 
-router.get('/api/init', function (req, res) {
+router.get('/api/init', function (req, res, next) {
     var initialData = [
         {playerRace: 'Zerg', opponentRace: 'Protoss', result: 'Win'},
         {playerRace: 'Protoss', opponentRace: 'Terran', result: 'Loss'},
@@ -16,7 +18,11 @@ router.get('/api/init', function (req, res) {
     ];
 
     Match.remove({}, function (err) {
-        console.log('collection removed')
+        if (err) {
+            return next(err);
+        }
+
+        console.log('collection removed');
     });
 
     //I am aware this is slow as it calls through save() on each entity, but at this stage of the app I
