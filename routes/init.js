@@ -27,13 +27,15 @@ router.get('/api/init', function (req, res, next) {
 
     //I am aware this is slow as it calls through save() on each entity, but at this stage of the app I
     //want the validation
-    Match.create(initialData, function (err) {
-        if (err) {
+    Match.create(initialData)
+        .then(
+        function onInit() {
+            res.json({message: 'testing'});
+        },
+        function onInitError(err) {
             return next(err);
         }
-
-        res.json({message: 'testing'});
-    });
+    );
 });
 
 module.exports = router;
