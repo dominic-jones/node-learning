@@ -52,7 +52,7 @@ function updateChart($scope, data) {
 
 app.controller('StatisticsController', ['$scope', '$http', '_', function ($scope, $http, _) {
 
-    $http.get('/api/matches')
+    $http.get('/api/statistics')
         .success(function (data) {
             $scope.raceData = data.raceData;
 

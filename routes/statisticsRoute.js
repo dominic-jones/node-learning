@@ -69,7 +69,7 @@ function findOverall(limit, race) {
         .then(withRace.bind(null, race));
 }
 
-router.get('/api/matches', function (req, res, next) {
+router.get('/api/statistics', function (req, res, next) {
     var limit = 5;
     Q.all([
         findOverall(limit, 'Overall'),
