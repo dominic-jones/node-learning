@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-require('./models/Match');
+require('./models/Statistics');
 mongoose.connect('mongodb://localhost/sc2-stats');
 
 var init = require('./routes/initRoute');

@@ -5,7 +5,7 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var _ = require('underscore');
-var Match = mongoose.model('Match');
+var Statistics = mongoose.model('Statistics');
 
 var Q = require('q');
 
@@ -54,7 +54,8 @@ function findRace(limit, race) {
     if (typeof race !== 'undefined') {
         query = {playerRace: race};
     }
-    return Match.find(query)
+    return Statistics.find(query)
+        .select('-_id -__v')
         .sort([['date', 'descending']])
         .limit(limit);
 }

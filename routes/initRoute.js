@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var Match = mongoose.model('Match');
+var Statistics = mongoose.model('Statistics');
 
 router.get('/api/init', function (req, res, next) {
     console.log();
@@ -32,7 +32,7 @@ router.get('/api/init', function (req, res, next) {
         {playerRace: 'Zerg', opponentRace: 'Terran', result: 'Loss', date: Date.UTC(2015, 11, 5, 3, 45, 15, 45)}
     ];
 
-    Match.remove({}, function (err) {
+    Statistics.remove({}, function (err) {
         if (err) {
             return next(err);
         }
@@ -42,7 +42,7 @@ router.get('/api/init', function (req, res, next) {
 
     //I am aware this is slow as it calls through save() on each entity, but at this stage of the app I
     //want the validation
-    Match.create(initialData)
+    Statistics.create(initialData)
         .then(
         function onInit() {
             res.json({message: 'testing'});

@@ -7,7 +7,7 @@ var raceDef = {
     enum: ['Terran', 'Protoss', 'Zerg']
 };
 
-var MatchSchema = new mongoose.Schema({
+var StatisticsSchema = new mongoose.Schema({
     playerRace: raceDef,
     opponentRace: raceDef,
     result: {
@@ -17,4 +17,4 @@ var MatchSchema = new mongoose.Schema({
     date: Date
 });
 
-mongoose.model('Match', MatchSchema);
+mongoose.model('Statistics', StatisticsSchema);
