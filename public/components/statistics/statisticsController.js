@@ -7,50 +7,9 @@ underscore.factory('_', ['$window', function ($window) {
 
 var app = angular.module('sc2-stats', ['ui.bootstrap.tabs', 'ui.bootstrap.tpls', 'angularCharts', 'underscore']);
 
-function hourOfDay(match) {
-    return new Date(match.date).getHours();
-}
+app.controller('StatisticsController', ['$scope', '$http', '_', StatisticsController]);
 
-function toChartData(matches, hour) {
-    var matchResult = _.countBy(matches, function (match) {
-        return match.result;
-    });
-    return {
-        x: hour,
-        y: [matchResult.Win || 0, matchResult.Loss || 0]
-    };
-}
-
-function buildChartData(matchesByRace) {
-    var chartData = _.chain(matchesByRace)
-        .groupBy(hourOfDay)
-        .map(toChartData)
-        .value();
-
-    populateMissingHours(chartData);
-
-    return _.sortBy(chartData, 'x');
-}
-
-function populateMissingHours(chartData) {
-    return _.chain(_.range(24))
-        .filter(function (hour) {
-            return !(hour in chartData);
-        })
-        .forEach(function (hour) {
-            chartData[hour] = {
-                x: hour,
-                y: [0, 0]
-            }
-        })
-        .value();
-}
-
-function updateChart($scope, data) {
-    $scope.chartData.data = buildChartData(data.matches);
-}
-
-app.controller('StatisticsController', ['$scope', '$http', '_', function ($scope, $http, _) {
+function StatisticsController($scope, $http, _) {
 
     $http.get('/api/statistics')
         .success(function (data) {
@@ -59,7 +18,7 @@ app.controller('StatisticsController', ['$scope', '$http', '_', function ($scope
             var matchesByRace = _.indexBy(data.raceData, 'race');
 
             $scope.chartData = {
-                series: ['Wins', 'Losses'],
+                series: ['Wins', 'Losses']
             };
 
             $scope.chartConfig = {
@@ -76,4 +35,47 @@ app.controller('StatisticsController', ['$scope', '$http', '_', function ($scope
         .error(function (data) {
             $scope.message = data;
         });
-}]);
+
+    function hourOfDay(match) {
+        return new Date(match.date).getHours();
+    }
+
+    function toChartData(matches, hour) {
+        var matchResult = _.countBy(matches, function (match) {
+            return match.result;
+        });
+        return {
+            x: hour,
+            y: [matchResult.Win || 0, matchResult.Loss || 0]
+        };
+    }
+
+    function buildChartData(matchesByRace) {
+        var chartData = _.chain(matchesByRace)
+            .groupBy(hourOfDay)
+            .map(toChartData)
+            .value();
+
+        populateMissingHours(chartData);
+
+        return _.sortBy(chartData, 'x');
+    }
+
+    function populateMissingHours(chartData) {
+        return _.chain(_.range(24))
+            .filter(function (hour) {
+                return !(hour in chartData);
+            })
+            .forEach(function (hour) {
+                chartData[hour] = {
+                    x: hour,
+                    y: [0, 0]
+                }
+            })
+            .value();
+    }
+
+    function updateChart($scope, data) {
+        $scope.chartData.data = buildChartData(data.matches);
+    }
+}
