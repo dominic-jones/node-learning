@@ -1,11 +1,18 @@
 <html>
 
 <head>
-    <title>matches</title>
+    <title>Player Statistics</title>
+    <script src="/bower_components/underscore/underscore-min.js"></script>
+
     <script src="/bower_components/angular/angular.min.js"></script>
+
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="components/matches/matchController.js"></script>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <script src='/bower_components/d3/d3.js'></script>
+    <script src='/bower_components/angular-charts/dist/angular-charts.js'></script>
+
+    <script src="components/matches/matchController.js"></script>
 </head>
 
 <body ng-app="sc2-stats" ng-controller="MatchController">
@@ -16,7 +23,7 @@
 
 <h2>Statistics</h2>
 <tabset>
-    <tab ng-repeat="raceDatum in raceData" heading="{{raceDatum.race}}" active="tab.active" disable="tab.disabled">
+    <tab ng-repeat="raceDatum in raceData" heading="{{raceDatum.race}}" select="changeTab(raceDatum.race)">
         <table width="50%">
             <tr>
                 <td width="50%">Wins</td>
@@ -48,12 +55,14 @@
                 <td>{{match.playerRace}}</td>
                 <td>{{match.opponentRace}}</td>
                 <td>{{match.result}}</td>
-                <td>{{match.date  | date:'MMM d y - hh:mm:ss'}}</td>
+                <td>{{match.date | date:'MMM d y - HH:mm:ss'}}</td>
             </tr>
         </table>
     </tab>
 </tabset>
 
+<div style="height: 300px; width: 600px;" ac-chart="'bar'" ac-data="chartData" ac-config="chartConfig" id='chart'
+     class='chart'></div>
 
 </body>
 </html>

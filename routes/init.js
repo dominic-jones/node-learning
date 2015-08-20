@@ -21,7 +21,7 @@ router.get('/api/init', function (req, res, next) {
         {playerRace: 'Terran', opponentRace: 'Protoss', result: 'Loss', date: Date.UTC(2015, 11, 5, 15, 56, 15, 45)},
         {playerRace: 'Terran', opponentRace: 'Zerg', result: 'Win', date: Date.UTC(2015, 11, 5, 16, 13, 45, 45)},
         {playerRace: 'Terran', opponentRace: 'Terran', result: 'Loss', date: Date.UTC(2015, 11, 5, 17, 34, 15, 45)},
-        {playerRace: 'Terran', opponentRace: 'Zerg', result: 'Win', date: Date.UTC(2015, 11, 5, 18, 24, 15, 45)},
+        {playerRace: 'Terran', opponentRace: 'Zerg', result: 'Win', date: Date.UTC(2015, 11, 5, 15, 24, 15, 45)},
 
         {playerRace: 'Zerg', opponentRace: 'Protoss', result: 'Win', date: Date.UTC(2015, 11, 4, 1, 13, 15, 45)},
         {playerRace: 'Zerg', opponentRace: 'Terran', result: 'Win', date: Date.UTC(2015, 10, 5, 1, 13, 15, 45)},
