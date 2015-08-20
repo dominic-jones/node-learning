@@ -50,7 +50,7 @@ function updateChart($scope, data) {
     $scope.chartData.data = buildChartData(data.matches);
 }
 
-app.controller('MatchController', ['$scope', '$http', '_', function ($scope, $http, _) {
+app.controller('StatisticsController', ['$scope', '$http', '_', function ($scope, $http, _) {
 
     $http.get('/api/matches')
         .success(function (data) {

@@ -8,8 +8,8 @@ var mongoose = require('mongoose');
 require('./models/Match');
 mongoose.connect('mongodb://localhost/sc2-stats');
 
-var init = require('./routes/init');
-var routes = require('./routes/matches');
+var init = require('./routes/initRoute');
+var routes = require('./routes/statisticsRoute');
 
 var app = express();
 
